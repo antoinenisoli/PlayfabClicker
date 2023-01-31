@@ -14,6 +14,15 @@ public class LoginPanel : MonoBehaviour
     [SerializeField] CanvasGroup group;
     [SerializeField] TMP_InputField emailInput, passwordInput;
     [SerializeField] TMP_Text messageText;
+    [SerializeField] GameObject usernameRequestPanel;
+    Selectable[] mySelectables;
+
+    private void Start()
+    {
+        mySelectables = GetComponentsInChildren<Selectable>();
+        if (PlayfabManager.Instance.currentUser != null)
+            Close(0.2f);
+    }
 
     public void Register() //called by button
     {
@@ -24,10 +33,10 @@ public class LoginPanel : MonoBehaviour
             RequireBothUsernameAndEmail = false,
         };
 
-        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSucess, OnError);
+        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSucess, OnLoginError);
     }
 
-    void OnError(PlayFabError error)
+    void OnLoginError(PlayFabError error)
     {
         string errorMessage = error.GenerateErrorReport();
         string[] split = errorMessage.Split("\n");
@@ -37,6 +46,9 @@ public class LoginPanel : MonoBehaviour
             messageText.text = split[1];
         else
             messageText.text = error.ErrorMessage;
+
+        foreach (var item in mySelectables)
+            item.interactable = true;
     }
 
     void OnRegisterSucess(RegisterPlayFabUserResult result)
@@ -52,9 +64,27 @@ public class LoginPanel : MonoBehaviour
         {
             Email = emailInput.text,
             Password = passwordInput.text,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            {
+                GetPlayerProfile = true
+            }
         };
 
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnError);
+        foreach (var item in mySelectables)
+            item.interactable = false;
+        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginError);
+    }
+
+    void Close(float fadeDelay)
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(panel.DOPunchScale(Vector3.one * 0.25f, 0.3f));
+        sequence.AppendInterval(fadeDelay);
+        sequence.Append(group.DOFade(0, 1f));
+        sequence.OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+        });
     }
 
     private void OnLoginSuccess(LoginResult result)
@@ -62,17 +92,26 @@ public class LoginPanel : MonoBehaviour
         print("user loggin : " + result.PlayFabId);
         messageText.color = Color.green;
         messageText.text = "Logged in. Welcome !";
+        PlayfabManager.Instance.LoginUser(emailInput.text, result.PlayFabId);
 
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(panel.DOPunchScale(Vector3.one * 0.5f, 0.3f));
-        sequence.AppendInterval(2f);
-        sequence.Append(group.DOFade(0, 1f));
-        sequence.OnComplete(() =>
+        string name = null;
+        if (result.InfoResultPayload.PlayerProfile != null)
+            name = result.InfoResultPayload.PlayerProfile.DisplayName;
+
+        if (name == null)
         {
-            gameObject.SetActive(false);
-        });
+            usernameRequestPanel.SetActive(true);
+            Close(0.5f);
+        }
+        else
+            Close(1.5f);
 
-        foreach (var item in GetComponentsInChildren<Selectable>())
-            item.interactable = false;
+        /*if (PlayfabManager.Instance.currentUser != null && string.IsNullOrEmpty(PlayfabManager.Instance.currentUser.name))
+        {
+            usernameRequestPanel.SetActive(true);
+            Close(0.5f);
+        }
+        else
+            Close(1.5f);*/
     }
 }

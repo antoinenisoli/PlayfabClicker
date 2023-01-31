@@ -5,37 +5,40 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 
+public class User
+{
+    public string name;
+    public string mailAdress;
+    public string playFabId;
+
+    public User(string name, string mailAdress, string playFabId)
+    {
+        this.name = name;
+        this.mailAdress = mailAdress;
+        this.playFabId = playFabId;
+    }
+}
+
 public class PlayfabManager : MonoBehaviour
 {
     public static PlayfabManager Instance;
+    public User currentUser = null;
+    int latestHighScore;
 
     private void Awake()
     {
         if (!Instance)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
             Destroy(gameObject);
     }
 
-    private void Start()
+    public void LoginUser(string mailAdress, string playFabId)
     {
-        Login();
-    }
-
-    void Login()
-    {
-        var request = new LoginWithCustomIDRequest
-        {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true,
-        };
-
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
-    }
-
-    void OnLoginSuccess(LoginResult result)
-    {
-        print(result.PlayFabId + " is now logged in.");
+        currentUser = new User("", mailAdress, playFabId);
     }
 
     public void OnError(PlayFabError error)
@@ -77,9 +80,36 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
 
-    private void OnLeaderboardGet(GetLeaderboardResult result)
+    public void GetUserLeaderboard()
+    {
+        var request = new GetLeaderboardAroundPlayerRequest
+        {
+            PlayFabId = currentUser.playFabId,
+            StatisticName = "HighScores",
+            MaxResultsCount = 1,
+        };
+
+        PlayFabClientAPI.GetLeaderboardAroundPlayer(request, OnPlayerLeaderboardGet, OnError);
+    }
+
+    private void OnPlayerLeaderboardGet(GetLeaderboardAroundPlayerResult result)
     {
         foreach (var item in result.Leaderboard)
-            print(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+        {
+            if (item.PlayFabId == currentUser.playFabId)
+            {
+                latestHighScore = item.StatValue;
+                print("latest user high score is : " + latestHighScore);
+                return;
+            }
+        }
+    }
+
+    public int GetLatestHighScore() => latestHighScore;
+
+    private void OnLeaderboardGet(GetLeaderboardResult result)
+    {
+        /*foreach (var item in result.Leaderboard)
+            print(item.Position + " " + item.PlayFabId + " " + item.StatValue);*/
     }
 }

@@ -14,6 +14,8 @@ public class EventManager : MonoBehaviour
 
     public UnityEvent OnNewGame = new UnityEvent();
     public UnityEvent OnGameStopped = new UnityEvent();
+    public UnityEvent OnNewHighScore = new UnityEvent();
+    public UnityEvent RequestUserName = new UnityEvent();
 
     private void Awake()
     {

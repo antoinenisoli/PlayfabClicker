@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StopGame();
+        EventManager.Instance.OnUpdateTimer.Invoke(gameDuration);
     }
 
     public void AddClick()
@@ -20,9 +22,10 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.OnNewClick.Invoke(clickCount);
     }
 
-    public void NewGame()
+    public void NewGame() //called by button
     {
         EventManager.Instance.OnNewGame.Invoke();
+        EventManager.Instance.OnNewClick.Invoke(0);
         gameIsRunning = true;
         clickCount = 0;
         timer = 0;
@@ -33,11 +36,8 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.OnGameStopped.Invoke();
         gameIsRunning = false;
         timer = 0;
-        if (clickCount > 0)
-        {
-            PlayfabManager.Instance.SendLeaderboard(clickCount);
-            PlayfabManager.Instance.GetLeaderboard();
-        }
+        PlayfabManager.Instance.GetLeaderboard();
+        PlayfabManager.Instance.GetUserLeaderboard();
     }
 
     private void Update()
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         if (gameIsRunning)
         {
             timer += Time.deltaTime;
-            EventManager.Instance.OnUpdateTimer.Invoke(timer);
+            EventManager.Instance.OnUpdateTimer.Invoke(gameDuration - timer);
             if (timer > gameDuration)
                 StopGame();
         }
