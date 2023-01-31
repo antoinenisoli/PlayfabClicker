@@ -38,7 +38,7 @@ public class PlayfabManager : MonoBehaviour
         print(result.PlayFabId + " is now logged in.");
     }
 
-    void OnError(PlayFabError error)
+    public void OnError(PlayFabError error)
     {
         print(error.GenerateErrorReport());
     }
