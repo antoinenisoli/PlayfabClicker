@@ -727,7 +727,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.25, g: 0.7841315, b: 1, a: 1}
+    m_NormalColor: {r: 0, g: 0.5568628, b: 1, a: 1}
     m_HighlightedColor: {r: 0.496, g: 0.85600007, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1376,6 +1376,7 @@ GameObject:
   - component: {fileID: 640672065}
   - component: {fileID: 640672064}
   - component: {fileID: 640672063}
+  - component: {fileID: 640672066}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -1498,6 +1499,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640672061}
   m_CullTransparentMesh: 1
+--- !u!114 &640672066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640672061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e847bae1ef6c44b8a3688d7d29c1db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growAmount: 1.05
+  duration: 0.15
 --- !u!1 &648608057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,6 +2163,7 @@ GameObject:
   - component: {fileID: 833781291}
   - component: {fileID: 833781290}
   - component: {fileID: 833781293}
+  - component: {fileID: 833781294}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -2197,8 +2213,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0.5568628, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.23400003, g: 0.6605569, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2232,6 +2248,18 @@ MonoBehaviour:
           m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 833781294}
+        m_TargetAssemblyTypeName: AnimatedButton, Assembly-CSharp
+        m_MethodName: ShakeMe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &833781291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2245,7 +2273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.5552082, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2282,6 +2310,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad46f689c0044714c88665f9ffc2d088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &833781294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833781288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e847bae1ef6c44b8a3688d7d29c1db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growAmount: 1.05
+  duration: 0.15
 --- !u!1 &852794449
 GameObject:
   m_ObjectHideFlags: 0
@@ -5498,6 +5540,7 @@ GameObject:
   - component: {fileID: 2117674794}
   - component: {fileID: 2117674793}
   - component: {fileID: 2117674792}
+  - component: {fileID: 2117674795}
   m_Layer: 5
   m_Name: LeaderboardButton
   m_TagString: Untagged
@@ -5547,8 +5590,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0.5568628, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.23400003, g: 0.6605569, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -5582,6 +5625,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2117674795}
+        m_TargetAssemblyTypeName: AnimatedButton, Assembly-CSharp
+        m_MethodName: ShakeMe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &2117674793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5595,7 +5650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.5552082, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5620,3 +5675,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117674790}
   m_CullTransparentMesh: 1
+--- !u!114 &2117674795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117674790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e847bae1ef6c44b8a3688d7d29c1db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growAmount: 1.05
+  duration: 0.15

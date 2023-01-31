@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.OnGameStopped.Invoke();
         gameIsRunning = false;
         timer = 0;
+        PlayfabManager.Instance.SendLeaderboard(clickCount);
         PlayfabManager.Instance.GetLeaderboard();
         PlayfabManager.Instance.GetUserLeaderboard();
     }

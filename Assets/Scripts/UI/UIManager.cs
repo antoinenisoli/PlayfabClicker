@@ -57,7 +57,6 @@ public class UIManager : MonoBehaviour
             endScreenGroup.blocksRaycasts = true;
             if (clickValue > PlayfabManager.Instance.GetLatestHighScore())
             {
-                PlayfabManager.Instance.SendLeaderboard((int)clickValue);
                 EventManager.Instance.OnNewHighScore.Invoke();
                 print("new high score !! ");
             }
