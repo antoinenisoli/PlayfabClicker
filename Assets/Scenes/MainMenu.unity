@@ -1285,7 +1285,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559805062
 GameObject:
@@ -2291,6 +2291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 852794450}
+  - component: {fileID: 852794453}
   - component: {fileID: 852794452}
   - component: {fileID: 852794451}
   m_Layer: 5
@@ -2364,6 +2365,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852794449}
   m_CullTransparentMesh: 1
+--- !u!114 &852794453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852794449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0665a8d4d88e124fa9400f68ee78c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryLinePrefab: {fileID: 6373457583608241061, guid: 2477152153d3dc34e81d07e8156431e9, type: 3}
+  content: {fileID: 1249271234}
 --- !u!1 &883601416
 GameObject:
   m_ObjectHideFlags: 0
@@ -5479,7 +5494,7 @@ RectTransform:
   - {fileID: 1842532044}
   - {fileID: 179673930}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

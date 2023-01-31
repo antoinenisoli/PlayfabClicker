@@ -24,6 +24,10 @@ public class PlayfabManager : MonoBehaviour
     public static PlayfabManager Instance;
     public User currentUser = null;
     int latestHighScore;
+    List<PlayerLeaderboardEntry> leaderboardEntries;
+
+    public int GetLatestHighScore() => latestHighScore;
+    public List<PlayerLeaderboardEntry> GetLeaderboardEntries() => leaderboardEntries;
 
     private void Awake()
     {
@@ -39,6 +43,7 @@ public class PlayfabManager : MonoBehaviour
     public void LoginUser(string name, string mailAdress, string playFabId)
     {
         currentUser = new User(name, mailAdress, playFabId);
+        GetLeaderboard();
     }
 
     public void OnError(PlayFabError error)
@@ -105,11 +110,10 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-    public int GetLatestHighScore() => latestHighScore;
-
     private void OnLeaderboardGet(GetLeaderboardResult result)
     {
-        /*foreach (var item in result.Leaderboard)
-            print(item.Position + " " + item.PlayFabId + " " + item.StatValue);*/
+        leaderboardEntries = result.Leaderboard;
+        foreach (var item in result.Leaderboard)
+            print(item.Position + " " + item.PlayFabId + " " + item.StatValue);
     }
 }
