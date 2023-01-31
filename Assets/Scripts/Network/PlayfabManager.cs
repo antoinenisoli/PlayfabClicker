@@ -36,9 +36,9 @@ public class PlayfabManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void LoginUser(string mailAdress, string playFabId)
+    public void LoginUser(string name, string mailAdress, string playFabId)
     {
-        currentUser = new User("", mailAdress, playFabId);
+        currentUser = new User(name, mailAdress, playFabId);
     }
 
     public void OnError(PlayFabError error)

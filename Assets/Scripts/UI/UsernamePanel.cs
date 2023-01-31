@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using PlayFab;
 using PlayFab.ClientModels;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UsernamePanel : MonoBehaviour
 {
     [SerializeField] CanvasGroup group;
-    [SerializeField] InputField usernameField;
+    [SerializeField] TMP_InputField usernameField;
 
     public void SubmitUsername() //called by button
     {

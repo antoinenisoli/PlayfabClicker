@@ -92,12 +92,11 @@ public class LoginPanel : MonoBehaviour
         print("user loggin : " + result.PlayFabId);
         messageText.color = Color.green;
         messageText.text = "Logged in. Welcome !";
-        PlayfabManager.Instance.LoginUser(emailInput.text, result.PlayFabId);
-
         string name = null;
         if (result.InfoResultPayload.PlayerProfile != null)
             name = result.InfoResultPayload.PlayerProfile.DisplayName;
 
+        PlayfabManager.Instance.LoginUser(name, emailInput.text, result.PlayFabId);
         if (name == null)
         {
             usernameRequestPanel.SetActive(true);
@@ -105,13 +104,5 @@ public class LoginPanel : MonoBehaviour
         }
         else
             Close(1.5f);
-
-        /*if (PlayfabManager.Instance.currentUser != null && string.IsNullOrEmpty(PlayfabManager.Instance.currentUser.name))
-        {
-            usernameRequestPanel.SetActive(true);
-            Close(0.5f);
-        }
-        else
-            Close(1.5f);*/
     }
 }

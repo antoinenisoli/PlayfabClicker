@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 453218201}
   - component: {fileID: 453218200}
   m_Layer: 5
-  m_Name: EmailInput
+  m_Name: UsernameField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5201,7 +5201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d9d5c0b02495b41af03f1ab46a42cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usernameField: {fileID: 0}
+  group: {fileID: 1842532045}
+  usernameField: {fileID: 453218200}
 --- !u!1 &1990322285
 GameObject:
   m_ObjectHideFlags: 0
