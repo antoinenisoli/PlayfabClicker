@@ -21,7 +21,7 @@ public class LoginPanel : MonoBehaviour
     {
         mySelectables = GetComponentsInChildren<Selectable>();
         if (PlayfabManager.Instance.currentUser != null)
-            Close(0.2f);
+            gameObject.SetActive(false);
     }
 
     public void Register() //called by button
