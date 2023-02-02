@@ -22,10 +22,11 @@ public class User
 public class PlayfabManager : MonoBehaviour
 {
     public static PlayfabManager Instance;
-    public User currentUser = null;
+    User currentUser = null;
     int latestHighScore;
     List<PlayerLeaderboardEntry> leaderboardEntries;
 
+    public User GetCurrentUser() => currentUser;
     public int GetLatestHighScore() => latestHighScore;
     public List<PlayerLeaderboardEntry> GetLeaderboardEntries() => leaderboardEntries;
 
@@ -79,41 +80,26 @@ public class PlayfabManager : MonoBehaviour
         {
             StatisticName = "HighScores",
             StartPosition = 0,
-            MaxResultsCount = 10,
+            MaxResultsCount = 15,
         };
 
+        print("CALL LEADERBOARD UPDATE");
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
-    }
-
-    public void GetUserLeaderboard()
-    {
-        var request = new GetLeaderboardAroundPlayerRequest
-        {
-            PlayFabId = currentUser.playFabId,
-            StatisticName = "HighScores",
-            MaxResultsCount = 1,
-        };
-
-        PlayFabClientAPI.GetLeaderboardAroundPlayer(request, OnPlayerLeaderboardGet, OnError);
-    }
-
-    private void OnPlayerLeaderboardGet(GetLeaderboardAroundPlayerResult result)
-    {
-        foreach (var item in result.Leaderboard)
-        {
-            if (item.PlayFabId == currentUser.playFabId)
-            {
-                latestHighScore = item.StatValue;
-                print("latest user high score is : " + latestHighScore);
-                return;
-            }
-        }
     }
 
     private void OnLeaderboardGet(GetLeaderboardResult result)
     {
         leaderboardEntries = result.Leaderboard;
+        print("leaderboard data received.");
+
         foreach (var item in result.Leaderboard)
+        {
             print(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+            if (item.PlayFabId == currentUser.playFabId) //get last high score of the user in order to compare it
+            {
+                latestHighScore = item.StatValue;
+                return;
+            }
+        }
     }
 }

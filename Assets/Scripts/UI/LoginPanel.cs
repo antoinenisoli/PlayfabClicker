@@ -20,7 +20,7 @@ public class LoginPanel : MonoBehaviour
     private void Start()
     {
         mySelectables = GetComponentsInChildren<Selectable>();
-        if (PlayfabManager.Instance.currentUser != null)
+        if (PlayfabManager.Instance.GetCurrentUser() != null)
             gameObject.SetActive(false);
     }
 
@@ -70,9 +70,9 @@ public class LoginPanel : MonoBehaviour
             }
         };
 
+        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginError);
         foreach (var item in mySelectables)
             item.interactable = false;
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginError);
     }
 
     void Close(float fadeDelay)
@@ -92,6 +92,7 @@ public class LoginPanel : MonoBehaviour
         print("user loggin : " + result.PlayFabId);
         messageText.color = Color.green;
         messageText.text = "Logged in. Welcome !";
+
         string name = null;
         if (result.InfoResultPayload.PlayerProfile != null)
             name = result.InfoResultPayload.PlayerProfile.DisplayName;

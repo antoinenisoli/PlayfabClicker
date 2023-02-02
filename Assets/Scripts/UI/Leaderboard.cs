@@ -5,21 +5,24 @@ using UnityEngine;
 public class Leaderboard : MonoBehaviour
 {
     [SerializeField] GameObject entryLinePrefab;
+    [SerializeField] GameObject waitingScreen;
     [SerializeField] Transform content;
 
     private void OnEnable()
     {
-        if (PlayfabManager.Instance)
-            PlayfabManager.Instance.GetLeaderboard();
-
-        Open();
+        StartCoroutine(Open());
     }
 
-    public void Open()
+    public IEnumerator Open()
     {
         foreach (Transform item in content)
             Destroy(item.gameObject);
 
+        waitingScreen.SetActive(true);
+        PlayfabManager.Instance.GetLeaderboard();
+        yield return new WaitForSeconds(1f); //wait for the leaderboard to be up to date
+        waitingScreen.SetActive(false);
+        
         foreach (var entry in PlayfabManager.Instance.GetLeaderboardEntries())
         {
             GameObject newRow = Instantiate(entryLinePrefab, content);

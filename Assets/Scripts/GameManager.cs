@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.OnUpdateTimer.Invoke(gameDuration);
     }
 
-    public void AddClick()
+    public void AddClick() //called by button
     {
         clickCount++;
         EventManager.Instance.OnNewClick.Invoke(clickCount);
@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
         timer = 0;
         PlayfabManager.Instance.SendLeaderboard(clickCount);
         PlayfabManager.Instance.GetLeaderboard();
-        PlayfabManager.Instance.GetUserLeaderboard();
     }
 
     private void Update()

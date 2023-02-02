@@ -25,7 +25,8 @@ public class UIManager : MonoBehaviour
             highScoreText.SetActive(true);
         });
 
-        SetGameState(false);
+        clickButton.gameObject.SetActive(false);
+        clickCountText.text = "0";
         ResetEndScreen();
     }
 
@@ -61,12 +62,6 @@ public class UIManager : MonoBehaviour
                 print("new high score !! ");
             }
         });
-    }
-
-    void SetGameState(bool state)
-    {
-        clickButton.gameObject.SetActive(state);
-        clickCountText.text = "0";
     }
 
     void UpdateTimer(float value)
